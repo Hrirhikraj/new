@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - Hospital Management System</title>
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        nav ul li {
+            margin-left: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .list-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .list-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            label, input, button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Doctor Dashboard</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="patients-section">
+            <h2>View Patients</h2>
+            <div class="list-container" id="patients-list">
+                <p>Loading patients...</p>
+            </div>
+        </section>
+        <section id="appointments-section">
+            <h2>Manage Appointments</h2>
+            <div class="list-container" id="appointments-list">
+                <p>Loading appointments...</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Hospital Management System</p>
+    </footer>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Simulated data for demonstration purposes
+        const patients = [
+            { name: "John Doe", age: 35, condition: "Hypertension" },
+            { name: "Jane Smith", age: 28, condition: "Diabetes" },
+            { name: "Emily White", age: 42, condition: "Asthma" }
+        ];
+
+        const appointments = [
+            { patient: "John Doe", time: "10:00 AM", status: "Pending" },
+            { patient: "Jane Smith", time: "11:30 AM", status: "Completed" },
+            { patient: "Emily White", time: "02:00 PM", status: "Pending" }
+        ];
+
+        // Function to display patients
+        function displayPatients() {
+            const container = document.getElementById("patients-list");
+            container.innerHTML = ""; // Clear loading message
+
+            if (patients.length === 0) {
+                container.innerHTML = "<p>No patients available.</p>";
+                return;
+            }
+
+            patients.forEach(patient => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${patient.name}</strong> - Age: ${patient.age}, Condition: ${patient.condition}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Function to display appointments
+        function displayAppointments() {
+            const container = document.getElementById("appointments-list");
+            container.innerHTML = ""; // Clear loading message
+
+            if (appointments.length === 0) {
+                container.innerHTML = "<p>No appointments available.</p>";
+                return;
+            }
+
+            appointments.forEach(appointment => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${appointment.patient}</strong> - Time: ${appointment.time}, Status: ${appointment.status}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize the dashboard by displaying all data
+        window.onload = () => {
+            displayPatients();
+            displayAppointments();
+        };
+    </script>
+</body>
+</html>

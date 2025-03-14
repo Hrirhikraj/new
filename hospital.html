@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Dashboard - Hospital Management System</title>
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        nav ul li {
+            margin-left: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .list-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .list-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Success/Error Messages */
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            label, input, button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Hospital Dashboard</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <!-- Add Doctors Section -->
+        <section id="doctors-section">
+            <h2>Add Doctors</h2>
+            <form id="addDoctorForm">
+                <label for="doctorName">Doctor Name:</label>
+                <input type="text" id="doctorName" name="doctorName" required>
+                <br>
+                <label for="specialization">Specialization:</label>
+                <input type="text" id="specialization" name="specialization" required>
+                <br>
+                <button type="submit">Add Doctor</button>
+            </form>
+            <div id="doctorMessage" class="message"></div>
+            <div class="list-container" id="doctors-list">
+                <h3>Doctors List</h3>
+                <p>No doctors added yet.</p>
+            </div>
+        </section>
+
+        <!-- Add Medicine Section -->
+        <section id="medicines-section">
+            <h2>Add Medicine</h2>
+            <form id="addMedicineForm">
+                <label for="medicineName">Medicine Name:</label>
+                <input type="text" id="medicineName" name="medicineName" required>
+                <br>
+                <label for="dosage">Dosage:</label>
+                <input type="text" id="dosage" name="dosage" required>
+                <br>
+                <button type="submit">Add Medicine</button>
+            </form>
+            <div id="medicineMessage" class="message"></div>
+            <div class="list-container" id="medicines-list">
+                <h3>Medicines List</h3>
+                <p>No medicines added yet.</p>
+            </div>
+        </section>
+
+        <!-- Scan Report Section -->
+        <section id="reports-section">
+            <h2>Scan Report</h2>
+            <form id="scanReportForm">
+                <label for="reportFile">Upload Report:</label>
+                <input type="file" id="reportFile" name="reportFile" required>
+                <br>
+                <button type="submit">Scan Report</button>
+            </form>
+            <div id="reportMessage" class="message"></div>
+            <div class="list-container" id="reports-list">
+                <h3>Reports List</h3>
+                <p>No reports scanned yet.</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Hospital Management System</p>
+    </footer>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Simulated data storage
+        const doctors = [];
+        const medicines = [];
+        const reports = [];
+
+        // Function to display doctors
+        function displayDoctors() {
+            const container = document.getElementById("doctors-list");
+            container.innerHTML = "<h3>Doctors List</h3>";
+
+            if (doctors.length === 0) {
+                container.innerHTML += "<p>No doctors added yet.</p>";
+                return;
+            }
+
+            doctors.forEach((doctor, index) => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${doctor.name}</strong> - ${doctor.specialization}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Function to display medicines
+        function displayMedicines() {
+            const container = document.getElementById("medicines-list");
+            container.innerHTML = "<h3>Medicines List</h3>";
+
+            if (medicines.length === 0) {
+                container.innerHTML += "<p>No medicines added yet.</p>";
+                return;
+            }
+
+            medicines.forEach((medicine, index) => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${medicine.name}</strong> - Dosage: ${medicine.dosage}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Function to display reports
+        function displayReports() {
+            const container = document.getElementById("reports-list");
+            container.innerHTML = "<h3>Reports List</h3>";
+
+            if (reports.length === 0) {
+                container.innerHTML += "<p>No reports scanned yet.</p>";
+                return;
+            }
+
+            reports.forEach((report, index) => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>Report ${index + 1}</strong> - ${report.name}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Handle Add Doctor Form Submission
+        document.getElementById("addDoctorForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const doctorName = document.getElementById("doctorName").value.trim();
+            const specialization = document.getElementById("specialization").value.trim();
+
+            if (!doctorName || !specialization) {
+                showMessage("doctorMessage", "Please fill in all fields.", "error");
+                return;
+            }
+
+            doctors.push({ name: doctorName, specialization });
+            showMessage("doctorMessage", "Doctor added successfully!", "success");
+            displayDoctors();
+
+            // Clear form fields
+            document.getElementById("doctorName").value = "";
+            document.getElementById("specialization").value = "";
+        });
+
+        // Handle Add Medicine Form Submission
+        document.getElementById("addMedicineForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const medicineName = document.getElementById("medicineName").value.trim();
+            const dosage = document.getElementById("dosage").value.trim();
+
+            if (!medicineName || !dosage) {
+                showMessage("medicineMessage", "Please fill in all fields.", "error");
+                return;
+            }
+
+            medicines.push({ name: medicineName, dosage });
+            showMessage("medicineMessage", "Medicine added successfully!", "success");
+            displayMedicines();
+
+            // Clear form fields
+            document.getElementById("medicineName").value = "";
+            document.getElementById("dosage").value = "";
+        });
+
+        // Handle Scan Report Form Submission
+        document.getElementById("scanReportForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const reportFile = document.getElementById("reportFile").files[0];
+
+            if (!reportFile) {
+                showMessage("reportMessage", "Please select a file to upload.", "error");
+                return;
+            }
+
+            reports.push({ name: reportFile.name });
+            showMessage("reportMessage", "Report scanned successfully!", "success");
+            displayReports();
+
+            // Clear form field
+            document.getElementById("reportFile").value = "";
+        });
+
+        // Function to show success/error messages
+        function showMessage(elementId, message, type) {
+            const messageDiv = document.getElementById(elementId);
+            messageDiv.textContent = message;
+            messageDiv.className = `message ${type}`;
+            setTimeout(() => {
+                messageDiv.textContent = "";
+                messageDiv.className = "message";
+            }, 3000);
+        }
+
+        // Initialize the dashboard by displaying lists
+        window.onload = () => {
+            displayDoctors();
+            displayMedicines();
+            displayReports();
+        };
+    </script>
+</body>
+</html>

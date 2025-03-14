@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Hospital Management System</title>
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+        }
+
+        /* Navigation Styling */
+        nav {
+            background-color: #333;
+            padding: 10px 0;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 20px;
+        }
+
+        nav ul li {
+            margin-left: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            padding: 8px 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        /* Main Content Styling */
+        main {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .list-container {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .list-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-top: 30px;
+        }
+
+        footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: flex-end;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            label, input, button {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>User Dashboard</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="doctors-section">
+            <h2>View Doctors</h2>
+            <div class="list-container" id="doctors-list">
+                <p>Loading doctors...</p>
+            </div>
+        </section>
+        <section id="reports-section">
+            <h2>View Reports</h2>
+            <div class="list-container" id="reports-list">
+                <p>Loading reports...</p>
+            </div>
+        </section>
+        <section id="medicines-section">
+            <h2>View Medicine</h2>
+            <div class="list-container" id="medicines-list">
+                <p>Loading medicines...</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Hospital Management System</p>
+    </footer>
+
+    <!-- Internal JavaScript -->
+    <script>
+        // Simulated data for demonstration purposes
+        const doctors = [
+            { name: "Dr. John Doe", specialization: "Cardiology" },
+            { name: "Dr. Jane Smith", specialization: "Neurology" },
+            { name: "Dr. Emily White", specialization: "Pediatrics" }
+        ];
+
+        const reports = [
+            { title: "Blood Test Report", date: "2023-10-01" },
+            { title: "X-Ray Report", date: "2023-10-05" },
+            { title: "MRI Scan Report", date: "2023-10-10" }
+        ];
+
+        const medicines = [
+            { name: "Paracetamol", dosage: "500mg" },
+            { name: "Ibuprofen", dosage: "200mg" },
+            { name: "Amoxicillin", dosage: "500mg" }
+        ];
+
+        // Function to display doctors
+        function displayDoctors() {
+            const container = document.getElementById("doctors-list");
+            container.innerHTML = ""; // Clear loading message
+
+            if (doctors.length === 0) {
+                container.innerHTML = "<p>No doctors available.</p>";
+                return;
+            }
+
+            doctors.forEach(doctor => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${doctor.name}</strong> - ${doctor.specialization}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Function to display reports
+        function displayReports() {
+            const container = document.getElementById("reports-list");
+            container.innerHTML = ""; // Clear loading message
+
+            if (reports.length === 0) {
+                container.innerHTML = "<p>No reports available.</p>";
+                return;
+            }
+
+            reports.forEach(report => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${report.title}</strong> - ${report.date}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Function to display medicines
+        function displayMedicines() {
+            const container = document.getElementById("medicines-list");
+            container.innerHTML = ""; // Clear loading message
+
+            if (medicines.length === 0) {
+                container.innerHTML = "<p>No medicines available.</p>";
+                return;
+            }
+
+            medicines.forEach(medicine => {
+                const div = document.createElement("div");
+                div.className = "list-item";
+                div.innerHTML = `<strong>${medicine.name}</strong> - ${medicine.dosage}`;
+                container.appendChild(div);
+            });
+        }
+
+        // Initialize the dashboard by displaying all data
+        window.onload = () => {
+            displayDoctors();
+            displayReports();
+            displayMedicines();
+        };
+    </script>
+</body>
+</html>
